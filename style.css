@@ -43,3 +43,28 @@ button:hover {
 h3 {
    opacity: 0.5;
 }
+
+.field {
+   height: 700px;
+   width: 700px;
+   margin-left: 300px;
+   margin-top: 60px;
+   background-color:white;
+   display: flex;
+   flex-wrap: wrap;
+
+}
+
+.parts {
+   height: calc(100%/3 - 2px);
+   width: calc(100%/3 - 2px);
+   border: 1px solid black;
+}
+
+.cell {
+   height: calc(100%/3 - 3px);
+   width: calc(100%/3 - 6px);
+   text-align: center;
+   font-size: 55px;
+   border: 1px solid black;
+}
