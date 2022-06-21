@@ -68,3 +68,7 @@ h3 {
    font-size: 55px;
    border: 1px solid black;
 }
+
+.cell:focus {
+   background-color:powderblue ;
+}

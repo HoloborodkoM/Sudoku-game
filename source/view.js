@@ -3,7 +3,7 @@
 const createSudokuField = () => {
    const field = document.createElement('div');
    field.classList.add('field')
-   document.querySelector('#program').append(field);
+   document.getElementById('program').append(field);
    const numberOfParts = 9;
    const numberOfCellsInPart = 9; 
 
@@ -18,9 +18,26 @@ const createSudokuField = () => {
          partOfField.append(cellOfPart);
       }
    }
-   
+
    return field;
 }
 
+/*const visualCells = () => {
+   const getCells = document.querySelectorAll('.cell');
+   for (const elem of getCells) {
+      elem.addEventListener('focus', event => hoverCatcher(event, elem));
+   }
+   return getCells;
+}
 
+function hoverCatcher(event, elem) {
+   console.log("hoverCa", event, elem)
+}
+
+
+createSudokuField();
+visualCells();
+const getCells = document.querySelectorAll('.cell');
+
+*/
 createSudokuField();
