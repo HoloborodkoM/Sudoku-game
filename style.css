@@ -55,7 +55,7 @@ h3 {
 
 }
 
-.parts {
+.part {
    height: calc(100%/3 - 2px);
    width: calc(100%/3 - 2px);
    border: 1px solid black;
@@ -69,6 +69,14 @@ h3 {
    border: 1px solid black;
 }
 
-.cell:focus {
+.cell-hover {
    background-color:powderblue ;
+}
+
+.cell-focus {
+   background-color: brown;
+}
+
+.cell-helper {
+   background-color: blue;
 }

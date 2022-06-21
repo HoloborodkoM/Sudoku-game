@@ -16,6 +16,7 @@ class Sudoku {
       const maxSize = 9;
       let checkRow = 0;
       let flagStart = true;
+      let currentPart = 0;
       for (const part of this.field) {
          if (checkRow % 3 === 0 && !flagStart) {
             numbOfRowsInPart += 3;
@@ -26,42 +27,51 @@ class Sudoku {
             for (let y = numbOfColumnInPart - 3; y < numbOfColumnInPart; y++) {
                part.push({
                   x,
-                  y
+                  y, 
+                  currentPart
                });
             }
          }
+         currentPart++;
          numbOfColumnInPart += 3;
          checkRow++;
       }
-      console.log(this.field[0][0])
+      console.log(this.field)
    }
 
-   getRow(numberRow) {
+   getRowWihoutCurrentCell(numberRow, numberY) {
       const row = [];
-      const maxSize = 9;
-      const currentNumberRow = numberRow - 1;
 
       for (const part of this.field) {
          for (const cell of part) {
-            if (cell.x === currentNumberRow) row.push(cell);
+            if (cell.x === numberRow && cell.y !== numberY) row.push(cell);
          }
       }
 
       return row;
    }
 
-   getColumn(numberColumn) {
+   getColumnWitoutCurrentCell(numberColumn, numberX) {
       const column = [];
-      const maxSize = 9;
-      const currentNumberColumn = numberColumn - 1;
 
       for (const part of this.field) {
          for (const cell of part) {
-            if (cell.y === currentNumberColumn) column.push(cell);
+            if (cell.y === numberColumn && cell.x !== numberX) column.push(cell);
          }
       }
 
       return column;
+   }
+
+   getPart(numberPart) {
+      const part = [];
+
+      for (const currPart of this.field) {
+         for (const cell of currPart) {
+            if (cell.currentPart === numberPart) part.push(cell);
+         }
+      }
+      return part;
    }
 
 }

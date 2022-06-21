@@ -1,7 +1,7 @@
 'use strict'
 
 const sudoku = new Sudoku;
+const sudokuView = new SudokuView;
+sudokuView.visualCells();
 
-console.log(sudoku.getRow(7))
-console.log(sudoku.getColumn(3))
-
+console.log(sudoku.getPart(2));
