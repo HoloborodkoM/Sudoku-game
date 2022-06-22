@@ -28,7 +28,8 @@ class Sudoku {
                part.push({
                   x,
                   y, 
-                  currentPart
+                  currentPart,
+                  number: 0
                });
             }
          }
@@ -39,27 +40,25 @@ class Sudoku {
       console.log(this.field)
    }
 
-   getRowWihoutCurrentCell(numberRow, numberY) {
+   getRow(numberRow) {
       const row = [];
 
       for (const part of this.field) {
          for (const cell of part) {
-            if (cell.x === numberRow && cell.y !== numberY) row.push(cell);
+            if (cell.x === numberRow) row.push(cell);
          }
       }
-
       return row;
    }
 
-   getColumnWitoutCurrentCell(numberColumn, numberX) {
+   getColumn(numberColumn) {
       const column = [];
 
       for (const part of this.field) {
          for (const cell of part) {
-            if (cell.y === numberColumn && cell.x !== numberX) column.push(cell);
+            if (cell.y === numberColumn) column.push(cell);
          }
       }
-
       return column;
    }
 

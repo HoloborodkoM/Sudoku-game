@@ -28,60 +28,74 @@ class SudokuView extends Sudoku {
    visualCells () {
       const getCells = document.querySelectorAll('.cell');
       for (const elem of getCells) {
-         elem.addEventListener('mouseover', event => this.mouseOverCatcher(event, elem, this.field));
-         elem.addEventListener('mouseout', event => this.mouseOutCatcher(event, elem, this.field));
-         elem.addEventListener('focusin', event => this.focusInCatcher(event, elem, this.field));
-         elem.addEventListener('focusout', event => this.focusOutCatcher(event, elem, this.field));
-         elem.addEventListener('keydown', event => this.keydownCatcher(event, elem, this.field));
+         elem.addEventListener('mouseover', event => this.#mouseOverCatcher(event, elem));
+         elem.addEventListener('mouseout', event => this.#mouseOutCatcher(event, elem));
+         elem.addEventListener('focusin', event => this.#focusInCatcher(event, elem, this.field));
+         elem.addEventListener('focusout', event => this.#focusOutCatcher(event, elem));
+         elem.addEventListener('keydown', event => this.#keydownCatcher(event, elem, this.field));
    
       }
       return getCells;
    }
    
-   mouseOverCatcher(event, elem, field) {
+   #mouseOverCatcher(event, elem, field) {
       elem.classList.add('cell-hover')
-      console.log("over", event, elem);
    }
    
-   mouseOutCatcher(event, elem, field) {
+   #mouseOutCatcher(event, elem, field) {
       elem.classList.remove('cell-hover')
-      console.log("out", event, elem);
    }
    
-   focusInCatcher(event, elem, field) {
+   #focusInCatcher(event, elem, field) {
       for (const part of field) {
          for (const cell of part) {
             if (cell.element === elem) {
                cell.element.classList.add('cell-focus')
                const part = this.getPart(cell.currentPart)
-               console.log(part)
-               const row = this.getRowWihoutCurrentCell(cell.x, cell.y)
-               const column = this.getColumnWitoutCurrentCell(cell.y, cell.x)
-               for (const partCell of part) {
-                  if (partCell.element !== elem) {
-                     partCell.element.classList.add('cell-helper')
-                  }
-               }
-               for (const rowCell of row) {
-                  rowCell.element.classList.add('cell-helper')
-               }
-               for (const columnCell of column) {
-                  columnCell.element.classList.add('cell-helper')
-               }
+               const row = this.getRow(cell.x)
+               const column = this.getColumn(cell.y)
+               this.#cellStaining(row, elem);
+               this.#cellStaining(column, elem);
+               this.#cellStaining(part, elem);
             }
          }
       }
    }
    
-   focusOutCatcher(event, elem, field) {
+   #focusOutCatcher(event, elem, field) {
       const allCell = document.querySelectorAll('.cell')
-      for (const removeCell of allCell) {
-         removeCell.classList.remove('cell-focus', 'cell-helper')
-      }
-      console.log("out", event, elem);
+      this.#removeCellStaining(allCell);
    }
    
-   keydownCatcher(event, elem, field) {
-      console.log("k", event, elem);
+   #keydownCatcher(event, elem, field) {
+      const number = '123456789'
+      const checkBackspace = 'Backspace'
+
+      if (number.includes(event.key) || event.key === checkBackspace) {
+         for (const part of field) {
+            for (const cell of part) {
+               if (elem === cell.element) {
+                  elem.value = event.key;
+                  cell.number = elem.value
+               }
+               if (event.key === checkBackspace) {
+                  elem.value = '';
+                  cell.number = '';
+
+               }
+               console.log(cell);
+            }
+         }
+
+      }
+      event.preventDefault();
+   }
+
+   #cellStaining(array, elem) {
+      return getRightCellForColoring(array, elem);
+   }
+
+   #removeCellStaining(array) {
+      return getRightCellForRemoveColoring(array);
    }
 }
