@@ -23,6 +23,19 @@ class SudokuView extends Sudoku {
             partOfField.append(cellOfPart);
          }
       }
+
+      /*const gft = this.getEasyLevelSudoku();
+      const frt = gft.array1;
+      for (const part of this.field) {
+         for (const cell of part) {
+            const cordX = cell.x;
+            const cordY = cell.y;
+            const value = frt[cordX][cordY];
+            value === 0 
+               ? cell.element.value = '' 
+               : cell.element.value = value;
+         }
+      }*/
    }
 
    visualCells () {
@@ -83,7 +96,6 @@ class SudokuView extends Sudoku {
                   cell.number = '';
 
                }
-               console.log(cell);
             }
          }
 

@@ -29,7 +29,7 @@ class Sudoku {
                   x,
                   y, 
                   currentPart,
-                  number: 0
+                  number: 0,
                });
             }
          }
@@ -37,7 +37,6 @@ class Sudoku {
          numbOfColumnInPart += 3;
          checkRow++;
       }
-      console.log(this.field)
    }
 
    getRow(numberRow) {
@@ -73,4 +72,14 @@ class Sudoku {
       return part;
    }
 
+   getEasyLevelSudoku() {
+   }
+
+   getMediumLevelSudoku() {
+
+   }
+
+   getHardLevelSudoku() {
+
+   }
 }

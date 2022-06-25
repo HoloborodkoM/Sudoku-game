@@ -62,7 +62,7 @@ h3 {
 }
 
 .cell {
-   height: calc(100%/3 - 3px);
+   height: calc(100%/3 - 4px);
    width: calc(100%/3 - 6px);
    text-align: center;
    font-size: 55px;
@@ -78,5 +78,5 @@ h3 {
 }
 
 .cell-helper {
-   background-color: blue;
+   background-color:hotpink;
 }
