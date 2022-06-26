@@ -166,7 +166,13 @@ const randomAreaVerticalSorting = (sudokuAnswer) => {
    }
 }
 
-const allSorts = () => {
+const getSolutionSudoku = () => {
+   const mySudoku = generationTwoBaseSudoku();
+   const emptySudoku = mySudoku.sudokuSolution;
+   return emptySudoku;
+}
+
+const getFinalyAnswerSudoku = () => {
    const mySudoku = generationTwoBaseSudoku();
    const completedSudoku = mySudoku.sudokuAnswer;
    randomColumnSorting(completedSudoku);
@@ -190,37 +196,30 @@ const sudokuFilling = (partialSudoku, completedSudoku, size, numberOfFilledCells
 
 const partiallyCompleteSudoku = (difficultyNumber) => {
    const size = sudokuComponents.sudokuLines;
-   const completedSudoku = allSorts();
-   const getSudoku = generationTwoBaseSudoku();
-   const getAnEmptySudoku = getSudoku.sudokuSolution;
+   const completedSudoku = getFinalyAnswerSudoku();
+   const getAnEmptySudoku = getSolutionSudoku();
    let counter = 0;
    const numberOfFilledCellsForNLevel = difficultyNumber;
    const partialSudoku = [...getAnEmptySudoku];
    sudokuFilling(partialSudoku, completedSudoku, size, numberOfFilledCellsForNLevel, counter);
-   return partialSudoku;
+   return { partialSudoku, completedSudoku };
 }
 
 const easyLevel = () => {
    const numberOfFilledCellsForAnEasyLevel = 60;
-   const newEasySudoku = partiallyCompleteSudoku(numberOfFilledCellsForAnEasyLevel);
-   console.log('easy', newEasySudoku);
-   return newEasySudoku;
+   const newSudokuForEasy = partiallyCompleteSudoku(numberOfFilledCellsForAnEasyLevel); 
+   return newSudokuForEasy;
 }
 
 const mediumLevel = () => {
    const numberOfFilledCellsForAnMediumLevel = 50;
-   const newMediumSudoku = partiallyCompleteSudoku(numberOfFilledCellsForAnMediumLevel);
-   console.log('medium', newMediumSudoku);
-   return newMediumSudoku;
+   const newSudokuForMedium = partiallyCompleteSudoku(numberOfFilledCellsForAnMediumLevel);
+   return newSudokuForMedium;
 }
 
 const hardLevel = () => {
    const numberOfFilledCellsForAnHardLevel = 40;
-   const newHardSudoku = partiallyCompleteSudoku(numberOfFilledCellsForAnHardLevel);
-   console.log('hard', newHardSudoku);
-   return newHardSudoku;
+   const newSudokuForHard = partiallyCompleteSudoku(numberOfFilledCellsForAnHardLevel);
+   return newSudokuForHard;
 }
 
-const e = easyLevel();
-const m = mediumLevel();
-const h = hardLevel();

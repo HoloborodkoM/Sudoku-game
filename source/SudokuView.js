@@ -24,18 +24,21 @@ class SudokuView extends Sudoku {
          }
       }
 
-      /*const gft = this.getEasyLevelSudoku();
-      const frt = gft.array1;
-      for (const part of this.field) {
-         for (const cell of part) {
-            const cordX = cell.x;
-            const cordY = cell.y;
-            const value = frt[cordX][cordY];
-            value === 0 
-               ? cell.element.value = '' 
-               : cell.element.value = value;
-         }
-      }*/
+      const difficultyButtons = document.createElement('div');
+      difficultyButtons.classList.add('buttons')
+      document.getElementById('program').append(difficultyButtons);
+      const buttonEasy = document.createElement('button');
+      buttonEasy.classList.add('button-easy');
+      buttonEasy.textContent = 'Easy';
+      difficultyButtons.append(buttonEasy);
+      const buttonMedium = document.createElement('button');
+      buttonMedium.classList.add('button-medium');
+      buttonMedium.textContent = 'Medium';
+      difficultyButtons.append(buttonMedium);
+      const buttonHard = document.createElement('button');
+      buttonHard.classList.add('button-hard');
+      buttonHard.textContent = 'Hard';
+      difficultyButtons.append(buttonHard);
    }
 
    visualCells () {
@@ -50,7 +53,91 @@ class SudokuView extends Sudoku {
       }
       return getCells;
    }
+
+   buttonsOneFunctional() {
+      const getFront = document.querySelector('.button-easy')
+      getFront.addEventListener('click', event => this.#clickCatcher1(event, getFront, this.field))
+      return getFront;
+   }
+
+   buttonsTwoFunctional() {
+      const getFront = document.querySelector('.button-medium')
+      getFront.addEventListener('click', event => this.#clickCatcher2(event, getFront, this.field))
+      return getFront;
+   }
+
+   buttonsThreeFunctional() {
+      const getFront = document.querySelector('.button-hard')
+      getFront.addEventListener('click', event => this.#clickCatcher3(event, getFront, this.field))
+      return getFront;
+   }
    
+   #clickCatcher1(event, element, field) {
+      const getEasySudoku = this.getEasyLevelSudoku();
+      const neededSudoku = getEasySudoku.partialSudoku;
+      const fullSudoku = getEasySudoku.completedSudoku;
+      for (const part of field) {
+         for (const cell of part) {
+            const cordX = cell.x;
+            const cordY = cell.y;
+            cell.number = neededSudoku[cordX][cordY];
+            cell.numberAnswer = fullSudoku[cordX][cordY];
+         }         
+      }
+
+      for (const part of this.field) {
+         for (const cell of part) {
+            cell.number === 0 
+               ? cell.element.value = '' 
+               : cell.element.value = cell.number;
+         }
+      }
+   }
+
+   #clickCatcher2(event, element, field) {
+      const getEasySudoku = this.getMediumLevelSudoku();
+      const neededSudoku = getEasySudoku.partialSudoku;
+      const fullSudoku = getEasySudoku.completedSudoku;
+      for (const part of field) {
+         for (const cell of part) {
+            const cordX = cell.x;
+            const cordY = cell.y;
+            cell.number = neededSudoku[cordX][cordY];
+            cell.numberAnswer = fullSudoku[cordX][cordY];
+         }         
+      }
+
+      for (const part of this.field) {
+         for (const cell of part) {
+            cell.number === 0 
+               ? cell.element.value = '' 
+               : cell.element.value = cell.number;
+         }
+      }
+   }
+
+   #clickCatcher3(event, element, field) {
+      const getEasySudoku = this.getHardLevelSudoku();
+      const neededSudoku = getEasySudoku.partialSudoku;
+      const fullSudoku = getEasySudoku.completedSudoku;
+      for (const part of field) {
+         for (const cell of part) {
+            const cordX = cell.x;
+            const cordY = cell.y;
+            cell.number = neededSudoku[cordX][cordY];
+            cell.numberAnswer = fullSudoku[cordX][cordY];
+         }         
+      }
+
+      for (const part of this.field) {
+         for (const cell of part) {
+            cell.number === 0 
+               ? cell.element.value = '' 
+               : cell.element.value = cell.number;
+         }
+      }
+   }
+
    #mouseOverCatcher(event, elem, field) {
       elem.classList.add('cell-hover')
    }

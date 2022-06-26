@@ -30,6 +30,7 @@ class Sudoku {
                   y, 
                   currentPart,
                   number: 0,
+                  numberAnswer: 0
                });
             }
          }
@@ -72,14 +73,37 @@ class Sudoku {
       return part;
    }
 
+   setParametrsSudoku(mas1, mas2) {
+      for (const part of this.field) {
+         for (const cell of part) {
+            const cordX = cell.x;
+            const cordY = cell.y;
+            cell.numberAnswer = mas1[cordX][cordY];
+            cell.number = mas2[cordX][cordY];
+         }
+      }
+      console.log('fffffffffffffffffffffffffff', this.field)
+   }
+
    getEasyLevelSudoku() {
+      return easyLevel();
    }
 
    getMediumLevelSudoku() {
-
+      return mediumLevel();
    }
 
    getHardLevelSudoku() {
-
+      return hardLevel();
    }
+
+   getFullSudoku() {
+      return getFinalyAnswerSudoku();
+   }
+
+   getEmptySudoku() {
+      return getSolutionSudoku();
+   }
+
+
 }

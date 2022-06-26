@@ -2,38 +2,62 @@ body {
    background-color:yellowgreen;
 }
 
-#front {
-   margin-top: 110px;
-   text-align:center;
+#program {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+.buttons {
+   margin: 25px;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   display: flex;
+   flex-wrap: wrap;
+   height: 120px;
+   width: 120px;
+
 }
 
 button {
    box-shadow: 9px 9px 4px black;
-   margin: 17px;
    border: 4px solid black;
    border-radius: 10px;
-   font-size: 45px;
+   font-size: 50px;
    padding-top: 8px;
    padding-bottom: 8px;
 }
 
-#button-easy {
-   padding-left: 39px;
-   padding-right: 39px;
+.button-easy {
+   margin-left: 50%;
+   margin-top: 30px;
+   margin-bottom: -35px;
+   margin-right: 45px;
+   padding-left: 50px;
+   padding-right: 50px;
 }
 
-#button-medium {
-   padding-left: 10px;
-   padding-right: 10px;
+.button-medium {
+   margin-left: 50%;
+   margin-top: 70px;
+   margin-bottom: -35px;
+   margin-right: 45px;
+   padding-left: 17px;
+   padding-right: 17px;
 }
 
-#button-hard {
-   padding-left: 39px;
-   padding-right: 39px;
+.button-hard {
+   margin-left: 50%;
+   margin-top: 70px;
+   margin-bottom: -35px;
+   margin-right: 45px;
+   padding-left: 51px;
+   padding-right: 51px;
 }
 
 h1 {
-   font-size: 85px;
+   font-size: 50px;
+   text-align:center;
+
 }
 
 button:hover {
@@ -47,8 +71,8 @@ h3 {
 .field {
    height: 700px;
    width: 700px;
-   margin-left: 300px;
-   margin-top: 60px;
+   margin-left: 20%;
+   margin-top: 35px;
    background-color:white;
    display: flex;
    flex-wrap: wrap;
