@@ -6,4 +6,5 @@ sudokuView.visualCells();
 sudokuView.buttonsOneFunctional();
 sudokuView.buttonsTwoFunctional();
 sudokuView.buttonsThreeFunctional();
-
+sudokuView.buttonsFourFunctional();
+sudokuView.getResult();

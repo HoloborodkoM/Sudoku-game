@@ -15,7 +15,6 @@ body {
    flex-wrap: wrap;
    height: 120px;
    width: 120px;
-
 }
 
 button {
@@ -29,8 +28,8 @@ button {
 
 .button-easy {
    margin-left: 50%;
-   margin-top: 30px;
-   margin-bottom: -35px;
+   margin-top: 39px;
+   margin-bottom: -25px;
    margin-right: 45px;
    padding-left: 50px;
    padding-right: 50px;
@@ -39,7 +38,7 @@ button {
 .button-medium {
    margin-left: 50%;
    margin-top: 70px;
-   margin-bottom: -35px;
+   margin-bottom: -25px;
    margin-right: 45px;
    padding-left: 17px;
    padding-right: 17px;
@@ -48,16 +47,48 @@ button {
 .button-hard {
    margin-left: 50%;
    margin-top: 70px;
-   margin-bottom: -35px;
+   margin-bottom: -25px;
    margin-right: 45px;
    padding-left: 51px;
    padding-right: 51px;
 }
 
+.button-help {
+   margin-left: 50%;
+   margin-top: 70px;
+   margin-bottom: -25px;
+   margin-right: 45px;
+   padding-left: 52px;
+   padding-right: 52px;
+}
+
+.button-tutorial {
+   margin-left: 24%;
+   margin-top: 70px;
+   margin-bottom: -25px;
+   margin-right: 45px;
+   padding-left: 21px;
+   padding-right: 21px;
+}
+
 h1 {
    font-size: 50px;
    text-align:center;
+}
 
+a {
+   margin-left: 47.5%;
+   margin-right: 47.5%;
+   margin-top: cm;
+   color:deeppink;
+   font-size: 50px;
+   text-decoration: none;
+}
+
+h2 {
+   font-size: 36px;
+   text-align: center;
+   margin-top: 4%;
 }
 
 button:hover {
@@ -109,12 +140,17 @@ h3 {
    color:red;
 }
 
-#timer {
+#indicators {
    display:inline-flex;
    font-size: 35px;
    height: 20px;
    width: 40px;
    margin-left: 25%;
+   margin-top: 15px;
+}
+
+.hour {
+   margin: 4px;
 }
 
 .minute {
@@ -123,4 +159,18 @@ h3 {
 
 .second {
    margin: 4px;
+}
+
+.number-errors-help {
+   display:inline-flex;
+   margin-left: 200%;
+}
+
+.helps {
+   margin-left: 10px;
+}
+
+.errors {
+   margin-left: 10px;
+   margin-right: 60px;
 }
