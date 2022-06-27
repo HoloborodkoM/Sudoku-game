@@ -55,6 +55,7 @@ class SudokuView extends Sudoku {
    }
 
    visualCells () {
+      this.object.flag = false;
       const getCells = document.querySelectorAll('.cell');
       for (const elem of getCells) {
          elem.addEventListener('mouseover', event => this.#mouseOverCatcher(event, elem));
@@ -69,7 +70,6 @@ class SudokuView extends Sudoku {
 
    buttonsOneFunctional() {
       const getFront = document.querySelector('.button-easy')
-      this.object.flag = true;
       getFront.addEventListener('click', event => this.#clickCatcher1(event, getFront, this.field))
       return getFront;
    }
@@ -157,6 +157,8 @@ class SudokuView extends Sudoku {
       }
       
       function Hi() {
+         alert('End game! more 1 hour');
+         location.reload();
       }
    }
 
@@ -240,6 +242,13 @@ class SudokuView extends Sudoku {
             }
          }
       }
+
+      if (this.object.complete) {
+         this.object.complete = false;
+         clearInterval(this.object.check)
+         setTimeout(() => alert('Congrats!!!'), 2000);
+         setTimeout(() => location.reload(), 3000);
+      }
       const allCell = document.querySelectorAll('.cell')
       this.#removeCellStaining(allCell);
    }
@@ -316,6 +325,29 @@ class SudokuView extends Sudoku {
                            }
                         }
                      }
+
+
+                     let gyu = 0;
+                     for (const par of field) {
+                        for (const cell of par) {
+                           if (cell.number !== cell.numberAnswer) {
+                              this.object.complete = false;
+                              this.object.flag = true;
+                              break;
+                           } else {
+                              gyu++;
+                           }
+                        }
+                        if (this.object.flag) {
+                           break;
+                        }
+                        if (gyu === 81) {
+                           this.object.complete = true;
+                        }
+                     }
+
+                     this.object.flag = false;
+
                      console.log(field);
                   }
                }
