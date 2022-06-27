@@ -5,6 +5,7 @@ class Sudoku {
    constructor() {
 
       this.field = [];
+      this.object = {};
       const numberOfParts = 9;
 
       for (let part = 1; part <= numberOfParts; part++) {

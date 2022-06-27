@@ -108,3 +108,19 @@ h3 {
 .cell-error {
    color:red;
 }
+
+#timer {
+   display:inline-flex;
+   font-size: 35px;
+   height: 20px;
+   width: 40px;
+   margin-left: 25%;
+}
+
+.minute {
+   margin: 4px;
+}
+
+.second {
+   margin: 4px;
+}

@@ -39,6 +39,19 @@ class SudokuView extends Sudoku {
       buttonHard.classList.add('button-hard');
       buttonHard.textContent = 'Hard';
       difficultyButtons.append(buttonHard);
+
+      const timer = document.getElementById('timer');
+      const timerMinute = document.createElement('div');
+      timerMinute.classList.add('minute');
+      timerMinute.textContent = '00';
+      timer.append(timerMinute);
+      const twoDots = document.createElement('div');
+      twoDots.textContent = ':';
+      timer.append(twoDots);
+      const timerSecond = document.createElement('div');
+      timerSecond.classList.add('second');
+      timerSecond.textContent = '00';
+      timer.append(timerSecond);
    }
 
    visualCells () {
@@ -56,6 +69,7 @@ class SudokuView extends Sudoku {
 
    buttonsOneFunctional() {
       const getFront = document.querySelector('.button-easy')
+      this.object.flag = true;
       getFront.addEventListener('click', event => this.#clickCatcher1(event, getFront, this.field))
       return getFront;
    }
@@ -96,6 +110,53 @@ class SudokuView extends Sudoku {
                cell.started = true;
             }
          }
+      }
+      const minuteElement = document.querySelector('.minute');
+      const secondElement = document.querySelector('.second');
+      
+
+      let minute = 0;
+      let second = 0;
+      let interval = 1000;
+      const end = true;
+      minuteElement.textContent = '0' + minute;
+      secondElement.textContent = '0' + second;
+
+      clearInterval(this.object.check);
+      this.object.check = setInterval(startTimer,interval);  
+
+      console.log(minute, second);
+      function startTimer() {
+         second++;
+         if (second <= 9) {
+            secondElement.textContent = '0' + second;
+         }
+         if (second > 9) {
+            secondElement.textContent = second;
+         }
+         if (second > 59) {
+            minute++;
+            second = 0;
+            secondElement.textContent = '0' + second;
+         }
+         if (minute <= 9) {
+            minuteElement.textContent = '0' + minute;
+         }
+         if (minute > 9) {
+            minuteElement.textContent = minute;
+         }
+         if (minute > 59) {
+            minute = 0;
+            minuteElement.textContent = '0' + minute;
+            second = 0;
+            secondElement.textContent = '0' + second;
+            Hi();
+            clearInterval(end);
+         }
+      
+      }
+      
+      function Hi() {
       }
    }
 

@@ -7,4 +7,3 @@ sudokuView.buttonsOneFunctional();
 sudokuView.buttonsTwoFunctional();
 sudokuView.buttonsThreeFunctional();
 
-
