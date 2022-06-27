@@ -47,7 +47,7 @@ class SudokuView extends Sudoku {
          elem.addEventListener('mouseover', event => this.#mouseOverCatcher(event, elem));
          elem.addEventListener('mouseout', event => this.#mouseOutCatcher(event, elem));
          elem.addEventListener('focusin', event => this.#focusInCatcher(event, elem, this.field));
-         elem.addEventListener('focusout', event => this.#focusOutCatcher(event, elem));
+         elem.addEventListener('focusout', event => this.#focusOutCatcher(event, elem, this.field));
          elem.addEventListener('keydown', event => this.#keydownCatcher(event, elem, this.field));
    
       }
@@ -85,11 +85,16 @@ class SudokuView extends Sudoku {
          }         
       }
 
-      for (const part of this.field) {
+      for (const part of field) {
          for (const cell of part) {
-            cell.number === 0 
-               ? cell.element.value = '' 
-               : cell.element.value = cell.number;
+            cell.error = false;
+            if (cell.number === 0) {
+               cell.element.value = '';
+               cell.started = false;
+            } else {
+               cell.element.value = cell.number;
+               cell.started = true;
+            }
          }
       }
    }
@@ -163,6 +168,17 @@ class SudokuView extends Sudoku {
    }
    
    #focusOutCatcher(event, elem, field) {
+      for (const part of field) {
+         for (const cell of part) {
+            if (elem === cell.element && cell.error) {
+               cell.error = false;
+               cell.element.value = '';
+               cell.number = 0;
+            } else {
+               cell.error = false;
+            }
+         }
+      }
       const allCell = document.querySelectorAll('.cell')
       this.#removeCellStaining(allCell);
    }
@@ -171,21 +187,79 @@ class SudokuView extends Sudoku {
       const number = '123456789'
       const checkBackspace = 'Backspace'
 
+      for (const part of field) {
+         for (const cell of part) {
+            if (cell.error) {
+               cell.element.classList.remove('cell-error');
+               cell.error = false;
+            }
+         }
+      }
+
       if (number.includes(event.key) || event.key === checkBackspace) {
          for (const part of field) {
             for (const cell of part) {
-               if (elem === cell.element) {
-                  elem.value = event.key;
-                  cell.number = elem.value
-               }
-               if (event.key === checkBackspace) {
-                  elem.value = '';
-                  cell.number = '';
+               const part1 = this.getPart(cell.currentPart)
+               const row = this.getRow(cell.x)
+               const column = this.getColumn(cell.y)
+               if (!cell.started) {
+                  if (elem === cell.element) {
+                     cell.element.value = event.key;
+                     cell.number = parseInt(cell.element.value);
+                     if (event.key === checkBackspace) {
+                        cell.element.value = '';
+                        cell.number = 0;
+                     }
 
+                     console.log(part);
+                     console.log(row);
+                     console.log(column);
+                     console.log(field);
+                     for (const check of part1) {
+                        console.log('part', check.error);
+                        if (cell.number === check.number) {
+                           cell.error = true;
+                           check.error = true;
+                           if (cell.number === cell.numberAnswer) {
+                              cell.error = false;
+                           }
+                        }
+                     }
+
+                     for (const check2 of row) {
+                        console.log('row', check2.error);
+                        if (cell.number === check2.number) {
+                           cell.error = true;
+                           check2.error = true;
+                           if (cell.number === cell.numberAnswer) {
+                              cell.error = false;
+                           }
+                        }
+                     }
+
+                     for (const checkC of column) {
+                        console.log('column', checkC.error);
+                        if (cell.number === checkC.number) {
+                           cell.error = true;
+                           checkC.error = true;
+                           if (cell.number === cell.numberAnswer) {
+                              cell.error = false;
+                           }
+                        }
+                     }
+
+                     for (const par of field) {
+                        for (const cell of par) {
+                           if (cell.error) {
+                              cell.element.classList.add('cell-error');
+                           }
+                        }
+                     }
+                     console.log(field);
+                  }
                }
             }
          }
-
       }
       event.preventDefault();
    }

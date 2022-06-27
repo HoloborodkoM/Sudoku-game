@@ -17,7 +17,7 @@ const getRightCellForColoring = (cellArray, currentCell) => {
 
 const getRightCellForRemoveColoring = (cellArray) => {
    for (const cellWithColor of cellArray) {
-      cellWithColor.classList.remove('cell-helper', 'cell-focus');
+      cellWithColor.classList.remove('cell-helper', 'cell-focus', 'cell-error');
    }
 }
 

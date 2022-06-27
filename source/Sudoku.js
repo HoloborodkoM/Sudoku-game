@@ -30,7 +30,9 @@ class Sudoku {
                   y, 
                   currentPart,
                   number: 0,
-                  numberAnswer: 0
+                  numberAnswer: 0,
+                  started: false,
+                  error: false
                });
             }
          }

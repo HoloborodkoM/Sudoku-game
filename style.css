@@ -98,9 +98,13 @@ h3 {
 }
 
 .cell-focus {
-   background-color: brown;
+   background-color: skyblue;
 }
 
 .cell-helper {
-   background-color:hotpink;
+   background-color:yellow;
+}
+
+.cell-error {
+   color:red;
 }
