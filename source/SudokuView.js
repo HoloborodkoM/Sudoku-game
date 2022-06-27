@@ -5,56 +5,12 @@ class SudokuView extends Sudoku {
    constructor() {
       super();
 
-      const field = document.createElement('div');
-      field.classList.add('field')
-      document.getElementById('program').append(field);
-      const numberOfParts = 9;
-      const numberOfCellsInPart = 9; 
-   
-      for (let part = 0; part < numberOfParts; part++) {
-         const partOfField = document.createElement('div');
-         partOfField.classList.add('part');
-         field.append(partOfField);
-   
-         for (let cell = 0; cell < numberOfCellsInPart; cell++) {
-            const cellOfPart = document.createElement('input');
-            cellOfPart.classList.add('cell');
-            this.field[part][cell].element = cellOfPart;
-            partOfField.append(cellOfPart);
-         }
-      }
+      const sudokuField = this.field;
+      this.#createSudokuField(sudokuField);
+      this.#createFunctionalButtons();
+      this.#createIndicators();
 
-      const variabilityButtons = document.createElement('div');
-      variabilityButtons.classList.add('buttons')
-      document.getElementById('program').append(variabilityButtons);
-      const buttonEasy = document.createElement('button');
-      buttonEasy.classList.add('button-easy');
-      buttonEasy.textContent = 'Easy';
-      variabilityButtons.append(buttonEasy);
-      const buttonMedium = document.createElement('button');
-      buttonMedium.classList.add('button-medium');
-      buttonMedium.textContent = 'Medium';
-      variabilityButtons.append(buttonMedium);
-      const buttonHard = document.createElement('button');
-      buttonHard.classList.add('button-hard');
-      buttonHard.textContent = 'Hard';
-      variabilityButtons.append(buttonHard);
-      const buttonHelp = document.createElement('button');
-      buttonHelp.classList.add('button-help');
-      buttonHelp.textContent = 'Help';
-      buttonHelp.setAttribute('disabled', true);
-      variabilityButtons.append(buttonHelp);
-      const tuutorial = document.createElement('form')
-      tuutorial.setAttribute('action', 'tutorial.html');
-      variabilityButtons.append(tuutorial);
-      const buttonTutorial = document.createElement('button');
-      buttonTutorial.classList.add('button-tutorial');
-      buttonTutorial.textContent = 'Tutorial';
-      tuutorial.append(buttonTutorial);
-
-
-
-      const indicator = document.getElementById('indicators');
+      /*const indicator = document.getElementById('indicators');
       const timerHour = document.createElement('div');
       timerHour.classList.add('hour');
       timerHour.textContent = '0';
@@ -89,7 +45,7 @@ class SudokuView extends Sudoku {
       const helps = document.createElement('div');
       helps.classList.add('helps');
       helps.textContent = '0';
-      numbersOfErrorsOrHelps.append(helps);
+      numbersOfErrorsOrHelps.append(helps);*/
 
       this.object.errors = 0;
       this.object.helps = 0;
@@ -473,6 +429,18 @@ class SudokuView extends Sudoku {
          }
          if (combo) break;
       }     
+   }
+
+   #createSudokuField(sudokuField) {
+      return sudokuFillingForVisual(sudokuField);
+   }
+
+   #createFunctionalButtons() {
+      return buttonsForActions();
+   }
+
+   #createIndicators() {
+      return indicatorsForViewResults();
    }
 
    #cellStaining(array, elem) {

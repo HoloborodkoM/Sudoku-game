@@ -1,10 +1,98 @@
 'use strict'
 
-const sudokuComponents = {
+const sudokuComponentsForGeneration = {
    sudokuAreas: 3,
    sudokuLines: 9,
    numberOfLinePermutations: 20,
    numberOfAreasPermutations: 5,
+}
+
+const sudokuComponentsForVisuality = {
+   numberOfParts: 9,
+   numberOfCellsInPart: 9,
+}
+
+const filingPartsAndCellsForVisual = (field, sudokuField) => {
+   const parts = sudokuComponentsForVisuality.numberOfParts;
+   const cells = sudokuComponentsForVisuality.numberOfCellsInPart;
+
+   for (let part = 0; part < parts; part++) {
+      const partOfField = document.createElement('div');
+      fillSelectorWithClass(field, partOfField, 'part');
+
+      for (let cell = 0; cell < cells; cell++) {
+         const cellOfPart = document.createElement('input');
+         fillSelectorWithClass(partOfField, cellOfPart, 'cell');
+         sudokuField[part][cell].element = cellOfPart;
+      }
+   }
+}
+
+const sudokuFillingForVisual = (sudokuField) => {
+   const field = document.createElement('div');
+   field.classList.add('field');
+   document.getElementById('program').append(field);
+   filingPartsAndCellsForVisual(field, sudokuField);
+}
+
+const fillSelectorWithTextAndClass = (root, currentSelector, classSelector, textSelector) => {
+   currentSelector.classList.add(classSelector);
+   currentSelector.textContent = textSelector;
+   root.append(currentSelector);
+}
+
+const fillSelectorWithClass = (root, currentSelector, classSelector) => {
+   currentSelector.classList.add(classSelector);
+   root.append(currentSelector);
+}
+
+const fillSelectorWithText = (root, currentSelector, textSelector) => {
+   currentSelector.textContent = textSelector;
+   root.append(currentSelector);
+}
+
+const buttonsForActions = () => {
+   const variabilityButtons = document.createElement('div');
+   variabilityButtons.classList.add('buttons');
+   document.getElementById('program').append(variabilityButtons);
+   const buttonEasy = document.createElement('button');
+   fillSelectorWithTextAndClass(variabilityButtons, buttonEasy, 'button-easy', 'Easy');
+   const buttonMedium = document.createElement('button');
+   fillSelectorWithTextAndClass(variabilityButtons, buttonMedium, 'button-medium', 'Medium');
+   const buttonHard = document.createElement('button');
+   fillSelectorWithTextAndClass(variabilityButtons, buttonHard, 'button-hard', 'Hard');
+   const buttonHelp = document.createElement('button');
+   fillSelectorWithTextAndClass(variabilityButtons, buttonHelp, 'button-help', 'Help');
+   buttonHelp.setAttribute('disabled', true);
+   const tutorial = document.createElement('form')
+   tutorial.setAttribute('action', 'tutorial.html');
+   variabilityButtons.append(tutorial);
+   const buttonTutorial = document.createElement('button');
+   fillSelectorWithTextAndClass(tutorial, buttonTutorial, 'button-tutorial', 'Tutorial');
+}
+
+const indicatorsForViewResults = () => {
+   const indicator = document.getElementById('indicators');
+   const timerHour = document.createElement('div');
+   fillSelectorWithTextAndClass(indicator, timerHour, 'hour', '0');
+   const firstTwoDots = document.createElement('div');
+   fillSelectorWithText(indicator, firstTwoDots, ':');
+   const timerMinute = document.createElement('div');
+   fillSelectorWithTextAndClass(indicator, timerMinute, 'minute', '00');
+   const secondTwoDots = document.createElement('div');
+   fillSelectorWithText(indicator, secondTwoDots, ':');
+   const timerSecond = document.createElement('div');
+   fillSelectorWithTextAndClass(indicator, timerSecond, 'second', '00');
+   const numbersOfErrorsOrHelps = document.createElement('div');
+   fillSelectorWithClass(indicator, numbersOfErrorsOrHelps, 'number-errors-helps');
+   const textError = document.createElement('div');
+   fillSelectorWithText(numbersOfErrorsOrHelps, textError, 'Errors: ');
+   const errors = document.createElement('div');
+   fillSelectorWithTextAndClass(numbersOfErrorsOrHelps, errors, 'errors', '0');
+   const textHelp = document.createElement('div');
+   fillSelectorWithText(numbersOfErrorsOrHelps, textHelp, 'Helps: ');
+   const helps = document.createElement('div');
+   fillSelectorWithTextAndClass(numbersOfErrorsOrHelps, helps, 'helps', '0');
 }
 
 const getRightCellForColoring = (cellArray, currentCell) => {
@@ -22,7 +110,7 @@ const getRightCellForRemoveColoring = (cellArray) => {
 }
 
 const generateRightSudoku = (x, y) => {
-   const area = sudokuComponents.sudokuAreas;
+   const area = sudokuComponentsForGeneration.sudokuAreas;
    const firstPart = x * area + x / area + y;
    const secondPart = area * area;
    const basicSudokuFormula = Math.floor((firstPart % secondPart) + 1);
@@ -32,7 +120,7 @@ const generateRightSudoku = (x, y) => {
 const generationTwoBaseSudoku = () => {
    const sudokuAnswer = [];
    const sudokuSolution = [];
-   const size = sudokuComponents.sudokuLines;
+   const size = sudokuComponentsForGeneration.sudokuLines;
 
    for (let row = 0; row < size; row++) {
       sudokuAnswer[row] = [];
@@ -51,7 +139,7 @@ const getRandomValue = (needValue) => {
 }
 
 const settingRandomValuesForLines = () => {
-   const area = sudokuComponents.sudokuAreas;
+   const area = sudokuComponentsForGeneration.sudokuAreas;
    const randomArea = getRandomValue(area);
    const lineOneRandom = getRandomValue(area);
    const lineOne = randomArea * area + lineOneRandom;
@@ -76,7 +164,7 @@ const swapVertical = (matrixSudoku, swapOne, swapTwo, row) => {
 }
 
 const sortingLines = (arrayLines, matrixSudoku, flag) => {
-   const size = sudokuComponents.sudokuLines;
+   const size = sudokuComponentsForGeneration.sudokuLines;
    const firstValue = arrayLines[0];
    const secondValue = arrayLines[1];
    const lineOne = firstValue;
@@ -92,7 +180,7 @@ const sortingLines = (arrayLines, matrixSudoku, flag) => {
 
 const randomColumnSorting = (sudokuAnswer) => {
    const sortRow = false;
-   const reshuffle = sudokuComponents.numberOfLinePermutations;
+   const reshuffle = sudokuComponentsForGeneration.numberOfLinePermutations;
    for (let counter = 0; counter < reshuffle; counter++) {
       const randomColumns = settingRandomValuesForLines();
       const columnNumbers = Object.values(randomColumns);
@@ -102,7 +190,7 @@ const randomColumnSorting = (sudokuAnswer) => {
 
 const randomRowSorting = (sudokuAnswer) => {
    const sortRow = true;
-   const reshuffle = sudokuComponents.numberOfLinePermutations;
+   const reshuffle = sudokuComponentsForGeneration.numberOfLinePermutations;
    for (let counter = 0; counter < reshuffle; counter++) {
       const randomRows = settingRandomValuesForLines();
       const rowNumbers = Object.values(randomRows);
@@ -111,7 +199,7 @@ const randomRowSorting = (sudokuAnswer) => {
 }
 
 const settingRandomValuesForAreas = () => {
-   const area = sudokuComponents.sudokuAreas;
+   const area = sudokuComponentsForGeneration.sudokuAreas;
    const areaOne = getRandomValue(area);
    let areaTwo = getRandomValue(area);
    while (areaOne === areaTwo) {
@@ -121,8 +209,8 @@ const settingRandomValuesForAreas = () => {
 }
 
 const sortingAreas = (arrayAreas, matrixSudoku, flag) => {
-   const size = sudokuComponents.sudokuLines;
-   const area = sudokuComponents.sudokuAreas;
+   const size = sudokuComponentsForGeneration.sudokuLines;
+   const area = sudokuComponentsForGeneration.sudokuAreas;
    const firstValue = arrayAreas[0];
    const secondValue = arrayAreas[1];
    const areaOne = firstValue;
@@ -148,7 +236,7 @@ const sortingAreas = (arrayAreas, matrixSudoku, flag) => {
 
 const randomAreaHorizontalSorting = (sudokuAnswer) => {
    const sortHorizontal = true;
-   const reshuffle = sudokuComponents.numberOfAreasPermutations;
+   const reshuffle = sudokuComponentsForGeneration.numberOfAreasPermutations;
    for (let counter = 0; counter < reshuffle; counter++) {
       const randomHorizontalAreas = settingRandomValuesForAreas();
       const horizontalAreaNumbers = Object.values(randomHorizontalAreas);
@@ -158,7 +246,7 @@ const randomAreaHorizontalSorting = (sudokuAnswer) => {
 
 const randomAreaVerticalSorting = (sudokuAnswer) => {
    const sortHorizontal = false;
-   const reshuffle = sudokuComponents.numberOfAreasPermutations;
+   const reshuffle = sudokuComponentsForGeneration.numberOfAreasPermutations;
    for (let counter = 0; counter < reshuffle; counter++) {
       const randomVerticalAreas = settingRandomValuesForAreas();
       const verticalAreaNumbers = Object.values(randomVerticalAreas);
@@ -195,7 +283,7 @@ const sudokuFilling = (partialSudoku, completedSudoku, size, numberOfFilledCells
 }
 
 const partiallyCompleteSudoku = (difficultyNumber) => {
-   const size = sudokuComponents.sudokuLines;
+   const size = sudokuComponentsForGeneration.sudokuLines;
    const completedSudoku = getFinalyAnswerSudoku();
    const getAnEmptySudoku = getSolutionSudoku();
    let counter = 0;
