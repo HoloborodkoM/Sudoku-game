@@ -5,30 +5,33 @@ class SudokuLogic {
    constructor() {
 
       this.field = [];
-      const numberOfParts = 9;
 
-      for (let part = 0; part < numberOfParts; part++) {
+      const sudokuParametrs = {
+         numberOfParts: 9,
+         numbOfRowsInPart: 3,
+         numbOfColumnInPart: 3,
+         maxSize: 9,
+         checkRow: 0,
+         flagStart: true,
+         currentPart: 0,
+      }
+
+      for (let part = 0; part < sudokuParametrs.numberOfParts; part++) {
          this.field.push([]);
       }
       
-      let numbOfRowsInPart = 3;
-      let numbOfColumnInPart = 3;
-      const maxSize = 9;
-      let checkRow = 0;
-      let flagStart = true;
-      let currentPart = 0;
       for (const part of this.field) {
-         if (checkRow % 3 === 0 && !flagStart) {
-            numbOfRowsInPart += 3;
+         if (sudokuParametrs.checkRow % 3 === 0 && !sudokuParametrs.flagStart) {
+            sudokuParametrs.numbOfRowsInPart += 3;
          }
-         flagStart = false;
-         for (let x = numbOfRowsInPart - 3; x < numbOfRowsInPart; x++) {
-            if (numbOfColumnInPart > maxSize) numbOfColumnInPart = 3;
-            for (let y = numbOfColumnInPart - 3; y < numbOfColumnInPart; y++) {
+         sudokuParametrs.flagStart = false;
+         for (let x = sudokuParametrs.numbOfRowsInPart - 3; x < sudokuParametrs.numbOfRowsInPart; x++) {
+            if (sudokuParametrs.numbOfColumnInPart > sudokuParametrs.maxSize) sudokuParametrs.numbOfColumnInPart = 3;
+            for (let y = sudokuParametrs.numbOfColumnInPart - 3; y < sudokuParametrs.numbOfColumnInPart; y++) {
                part.push({
                   x,
                   y, 
-                  currentPart,
+                  currentPart: sudokuParametrs.currentPart,
                   number: 0,
                   numberAnswer: 0,
                   started: false,
@@ -36,9 +39,9 @@ class SudokuLogic {
                });
             }
          }
-         currentPart++;
-         numbOfColumnInPart += 3;
-         checkRow++;
+         sudokuParametrs.currentPart++;
+         sudokuParametrs.numbOfColumnInPart += 3;
+         sudokuParametrs.checkRow++;
       }
    }
 
