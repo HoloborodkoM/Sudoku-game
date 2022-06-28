@@ -95,6 +95,31 @@ const indicatorsForViewResults = () => {
    fillSelectorWithTextAndClass(numbersOfErrorsOrHelps, helps, 'helps', '0');
 }
 
+const deleteErrorsAfterUnfocusing = (sudoku, element) => {
+   for (const part of sudoku) {
+      for (const cell of part) {
+         if (element === cell.element && cell.error) {
+            cell.error = false;
+            cell.element.value = '';
+            cell.number = 0;
+         } else {
+            cell.error = false;
+         }
+      }
+   }
+}
+
+const checkStyleErrorWhenInputNumberAgain = (sudoku) => {
+   for (const part of sudoku) {
+      for (const cell of part) {
+         if (cell.error) {
+            cell.element.classList.remove('cell-error');
+            cell.error = false;
+         }
+      }
+   }
+}
+
 const getRightCellForColoring = (cellArray, currentCell) => {
    for (const cellWithoutColor of cellArray) {
       if (cellWithoutColor.element !== currentCell) {
@@ -106,6 +131,124 @@ const getRightCellForColoring = (cellArray, currentCell) => {
 const getRightCellForRemoveColoring = (cellArray) => {
    for (const cellWithColor of cellArray) {
       cellWithColor.classList.remove('cell-helper', 'cell-focus', 'cell-error');
+   }
+}
+
+const addValue = (cell, key) => {
+   cell.element.value = key;
+   cell.number = parseInt(cell.element.value);
+}
+
+const checkingBackspace = (cell, key, backspace) => {
+   if (key === backspace) {
+      cell.element.value = '';
+      cell.number = 0;
+   }
+}
+
+const checkSameValue = (cellArray, currentCell) => {
+   for (const check of cellArray) {
+      if (currentCell.number === check.number && currentCell.number !== 0) {
+         currentCell.error = true;
+         check.error = true;
+         if (currentCell.number === currentCell.numberAnswer) {
+            currentCell.error = false;
+         }
+      }
+   }
+}
+
+const addClassError = (sudoku) => {
+   for (const par of sudoku) {
+      for (const cell of par) {
+         if (cell.error) {
+            cell.element.classList.add('cell-error');
+         }
+      }
+   }
+}
+
+const generateByClick = (sudokus, field) => {
+   const neededSudoku = sudokus.partialSudoku;
+   const fullSudoku = sudokus.completedSudoku;
+   for (const part of field) {
+      for (const cell of part) {
+         const cordX = cell.x;
+         const cordY = cell.y;
+         cell.number = neededSudoku[cordX][cordY];
+         cell.numberAnswer = fullSudoku[cordX][cordY];
+      }         
+   }
+}
+
+const setCells = (sudoku) => {
+   for (const part of sudoku) {
+      for (const cell of part) {
+         cell.error = false;
+         if (cell.number === 0) {
+            cell.element.value = '';
+            cell.started = false;
+         } else {
+            cell.element.value = cell.number;
+            cell.started = true;
+         }
+      }
+   }
+}
+
+const setTimer = (elements, info) => {
+   
+   const hourElement = elements.getHour;
+   const minuteElement = elements.getMinutes;
+   const secondElement = elements.getSeconds;
+   
+   info.hour = 0;
+   info.minute = 0;
+   info.second = 0;
+   const end = true;
+
+   secondElement.textContent = '0' + info.second;
+   minuteElement.textContent = '0' + info.minute;
+   hourElement.textContent = info.hour;
+
+   clearInterval(info.checkForTimer);
+   info.checkForTimer = setInterval(startTimer, info.interval);  
+
+   function startTimer() {
+      info.second++;
+      if (info.second <= 9) {
+         secondElement.textContent = '0' + info.second;
+      }
+      if (info.second > 9) {
+         secondElement.textContent = info.second;
+      }
+      if (info.second > 59) {
+         info.minute++;
+         info.second = 0;
+         secondElement.textContent = '0' + info.second;
+      }
+      if (info.minute <= 9) {
+         minuteElement.textContent = '0' + info.minute;
+      }
+      if (info.minute > 9) {
+         minuteElement.textContent = info.minute;
+      }
+      if (info.minute > 59) {
+         info.hour++;
+         hourElement.textContent = info.hour;
+         info.minute = 0;
+         minuteElement.textContent = '0' + info.minute;
+         info.second = 0;
+         secondElement.textContent = '0' + info.second;
+         setTimeout(outTime, 2000);
+         clearInterval(end);
+      }
+   }
+   
+   function outTime() {
+      const text = 'End game!!! More 1 hour';
+      alert(text);
+      location.reload();
    }
 }
 

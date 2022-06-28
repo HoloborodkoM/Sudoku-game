@@ -1,10 +1,9 @@
 'use strict'
 
 const sudoku = new Sudoku;
-const sudokuView = new SudokuView;
-sudokuView.visualCells();
-sudokuView.buttonsOneFunctional();
-sudokuView.buttonsTwoFunctional();
-sudokuView.buttonsThreeFunctional();
-sudokuView.buttonsFourFunctional();
-sudokuView.getResult();
+sudoku.handlingSudokuField();
+sudoku.handlingEasyButton();
+sudoku.handlingMediumButton();
+sudoku.handlingHardButton();
+sudoku.handlingHelpButton();
+sudoku.handlingCompleteSudoku();
